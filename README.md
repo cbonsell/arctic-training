@@ -6,6 +6,10 @@ more info
 * one
 * two
 * three
+* six
+* eight
+
+$$-b+-b^2-4ac$$
 
 
 more changes.
