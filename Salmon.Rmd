@@ -1,0 +1,139 @@
+---
+title: "Data Tidying Lesson"
+author: "Christina Bonsell"
+date: "October 9, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r load_pkgs}
+library(tidyverse)
+```
+
+
+# Read in  data
+
+```{r prep}
+catch_original <- read.csv(url("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/df35b.302.1", method = "libcurl"), stringsAsFactors = F)
+
+head(catch_original)
+
+region_defs <- read.csv(url("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/df35b.303.1", method = "libcurl"), stringsAsFactors = F) %>% 
+  select(code, mgmtArea)
+
+head(region_defs)
+
+```
+
+
+# Clean data
+```{r clean!}
+catch_data <- catch_original %>% 
+  select(-All, -notesRegCode)
+
+head(catch_data)
+catch_clean <- catch_data %>% 
+  mutate(Chinook = as.numeric(Chinook))
+
+
+i <- which(is.na(catch_clean$Chinook))
+
+catch_original[i,]
+```
+One of the Chinook vals is an **I**, gotta change it to a **1**
+
+```{r}
+catch_clean <- catch_data %>% 
+  mutate(Chinook = ifelse(Chinook == "I", 1, Chinook)) %>% 
+  mutate(Chinook = as.numeric(Chinook))
+
+head(catch_clean)
+```
+
+# tidy data
+```{r tidy!}
+catch_long <- catch_clean %>% 
+  pivot_longer(cols = -c(Region, Year), 
+               names_to = "Species", 
+               values_to = "Catch")
+
+head(catch_long)
+
+catch_wide <- catch_long %>% 
+  pivot_wider(names_from = Species,
+             values_from = Catch)
+head(catch_wide)
+```
+
+# correct units
+```{r units!}
+catch_long <- catch_long %>% 
+  rename(catch_thousands = Catch) %>% 
+  mutate(catch = catch_thousands *1000) %>% 
+  select(-catch_thousands)
+  
+head(catch_long)
+```
+#Summarize
+mean by species and region
+```{r summarize!}
+mean_region <- catch_long %>% 
+  group_by(Region) %>% 
+  summarize(mean_catch = mean(catch, na.rm=T),
+            n_obs = n())
+
+mean_region
+```
+mean catch of Sockeye
+```{r sockeye}
+mean_sockeye_region <- catch_long %>% 
+  group_by(Region) %>% 
+  filter(Species == "Sockeye") %>% 
+  summarize(mean_catch = mean(catch, na.rm=T),
+            n_obs = n())
+
+mean_sockeye_region
+
+```
+```{r}
+annual_catch <- catch_long %>% 
+  group_by(Year) %>% 
+  summarise(total_catch = sum(catch, na.rm=T)) %>% 
+  arrange(-total_catch)
+
+
+annual_catch
+```
+Join with region
+```{r join!}
+catch_joined <- left_join(catch_long, region_defs, by = c("Region" = "code"))
+
+head(catch_joined)
+```
+Seperate and unite
+```{r}
+dates_df <- data.frame(date = c("5/24/1930",
+                                "5/25/1930",
+                                "5/26/1930",
+                                "5/27/1930",
+                                "5/28/1930"),
+                       stringsAsFactors = FALSE)
+dates_df
+
+dates_df %>% 
+  separate(date, into = c("month", "day", "year"), "/", remove=FALSE) %>% 
+  unite(date_2, year, month, day, sep = "-")
+
+dates_df %>% 
+  mutate(three_char = stringr::str_sub(date, start = -3, end = -1))
+
+
+
+
+
+
+```
+
