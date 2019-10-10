@@ -13,6 +13,8 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(cowplot)
 library(scales)
+library(DT)
+library(leaflet)
 ```
 
 ```{r readfile}
@@ -65,16 +67,28 @@ annual_esc %>%
 Escapement over time: all regions
 
 ```{r}
-ggplot(annual_esc, aes(Year, total_escapement, color = Species))+
+fig1 <- ggplot(annual_esc, aes(Year, total_escapement, color = Species))+
   geom_point()+
   geom_line()+
   facet_wrap(~SASAP.Region, scales = "free_y")
+
+fig1
+
+ggsave("escapement.png", fig1, width = 12, height = 7, units ="in")
 ```
 
 
 # Map Sampling Locations
 
-```{r}
+Create table with unique sampling locations, latitudes, and logitudes
 
+```{r}
+locations <- esc %>% 
+  distinct(Location, Latitude, Longitude) %>% 
+  drop_na()
+```
+
+```{r}
+datatable(locations)
 ```
 
