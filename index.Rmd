@@ -92,3 +92,54 @@ locations <- esc %>%
 datatable(locations)
 ```
 
+```{r}
+leaflet(locations) %>% 
+  addTiles() %>% 
+  addCircleMarkers(lng = ~Longitude, lat = ~Latitude, popup = ~ Location) #can popup with data, combos etc
+
+#email Sharon about EPA GIS files for Arctic projection
+
+#can also use sf i/o leaflet which makes projections , but is static
+
+#also don't have to use tiles!!! can just use shapefile
+  
+```
+
+```{r}
+leaflet(locations) %>% 
+  addWMSTiles("https://www.gebco.net/data_and_products/gebco_web_services/north_polar_view_wms/mapserv?",
+              layers = 'GEBCO_LATEST',
+              attribution = "Imagery reproduced from the GEBCO_2014 Grid, version 20150318, www.gebco.net") %>%
+  addCircleMarkers(lng = ~Longitude,
+                   lat = ~Latitude,
+                   popup = ~ Location,
+                   radius = 5,
+                   # set fill properties
+                   fillColor = "salmon",
+                   fillOpacity = 1,
+                   # set stroke properties
+                   stroke = T,
+                   weight = 0.5,
+                   color = "white",
+                   opacity = 1)
+
+
+# 
+# leaflet(locations) %>% 
+#   addWMSTiles("https://www.gebco.net/data_and_products/gebco_web_services/north_polar_view_wms/mapserv?",
+#               layers = 'GEBCO_LATEST',
+#               attribution = "Imagery reproduced from the GEBCO_2014 Grid, version 20150318, www.gebco.net") %>%
+#   addCircleMarkers(lng = ~Longitude,
+#                    lat = ~Latitude,
+#                    popup = ~ Location,
+#                    radius = 5,
+#                    # set fill properties
+#                    fillColor = "salmon",
+#                    fillOpacity = 1,
+#                    # set stroke properties
+#                    stroke = T,
+#                    weight = 0.5,
+#                    color = "white",
+#                    opacity = 1)
+```
+
