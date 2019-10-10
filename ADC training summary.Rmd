@@ -1,0 +1,40 @@
+---
+title: "ADC training summary"
+author: "Christina Bonsell"
+date: "October 9, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Problem: 
+## How is someone 5 (or 10 or 20) years from now (i.e. Christina's replacement), or someone not involved with this project going to know how we QA/QC'd our datalogger data?
+
+# additional problems: 
+##how can BLE QA/QC and data analysis be 
+
+1. more efficient in general
+2. more agile in incorporating new data after each season/year
+
+# Why: So BLE data can be widely and wisely used
+
+#Solution:
+* preserve computational workflows
+
+Tool I learned that I'm excited about:
+* GitHub
+
+Tools I got better at:
+* Rmarkdown
+* R data wrangling tools
+
+Tools I learned, but probably won't use anytime soon:
+* DMPTools (but we didn't spend much time on it)
+
+Additionally (importantly), I learned that you can include your QA/QC code into repositories, linking raw datasets to QA/QC derived datasets
+
+
+
+
