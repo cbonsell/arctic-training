@@ -5,13 +5,14 @@ date: "October 10, 2019"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
+```{r setup, include = FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r}
+```{r, warning = F, message = F}
 library(tidyverse)
 library(cowplot)
+library(scales)
 ```
 
 ```{r readfile}
@@ -20,7 +21,7 @@ esc <- read.csv(url("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/urn%3Auu
 
 
 # Calculate Annual Escapement for Salmon Species
-```{r}
+```{r, results="hide"}
 annual_esc <- esc %>% 
   separate(sampleDate, c("Year","month","Day"), sep = "-", remove = F) %>% 
   mutate(Year = as.numeric(Year)) %>% 
@@ -33,13 +34,43 @@ head(annual_esc)
 
 # Visulaize Escapement
 
-```{r}
+Total Escapement by Region and Species
+
+```{r, echo = F}
 theme_set(theme_cowplot())
 
 
 ggplot(annual_esc, aes(Species, total_escapement, fill=SASAP.Region))+
   geom_col(position=position_dodge())
 ```
+Kodiak escapement over time by species
+
+```{r echo = F}
+my_theme <- theme_bw() +
+  theme(legend.position = "bottom")
+
+annual_esc %>%
+  filter(SASAP.Region == "Kodiak") %>% 
+  ggplot(aes(Year, total_escapement, color = Species))+
+  geom_point()+
+  geom_line()+
+  scale_color_brewer(palette = "Dark2")+
+  ylab("Escapement (no. fish)")+
+  ggtitle("Kodiak Salmon Escapement")+
+  my_theme
+
+
+```
+
+Escapement over time: all regions
+
+```{r}
+ggplot(annual_esc, aes(Year, total_escapement, color = Species))+
+  geom_point()+
+  geom_line()+
+  facet_wrap(~SASAP.Region, scales = "free_y")
+```
+
 
 # Map Sampling Locations
 
