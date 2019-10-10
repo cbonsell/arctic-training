@@ -39,7 +39,10 @@ Additionally (importantly), I learned that you can include your QA/QC code into 
 ###Bonus features  
  * I can quickly send data and QA/QC updates, reports, and summaries to whomever via a web address
  * I learned some handy R functions. Yay code efficiency.
+ * We recieved training in facilitating small group meetings for improved collaboration around decision making. See [Cheruvelil, K. S., Soranno, P. A., Weathers, K. C., Hanson, P. C., Goring, S. J., Filstrup, C. T., & Read, E. K. (2014). Creating and maintaining high-performing collaborative research teams: The importance of diversity and interpersonal skills. Frontiers in Ecology and the Environment.](https://esajournals.onlinelibrary.wiley.com/doi/epdf/10.1890/130001)
+ * I chatted with a physical oceanographer (Andreas Muenchow), who recommended that we shouldn't remove any of our raw RBR Temp/Cond/Sal data bc it is real (they are measuring the conductivity od the environment, the environment is just extra turbid), and just flag it
 
+QM data should be re-designated: sedimented data
 
 
 
