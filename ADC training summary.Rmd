@@ -9,14 +9,14 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# We want BLe data to be widely and *wisely* used
+# We want BLE data to be widely and *wisely* used
 
 
 ## Problem: 
 ### **How is someone 5 (or 10 or 20) years from now (i.e. Christina's replacement), or someone not involved with this project going to know how we QA/QC'd our datalogger data?**
 
-## Additional problems: 
-### how can BLE QA/QC and data analysis be 
+## Also: 
+### How can BLE QA/QC and data analysis be 
 
 ### 1. more efficient in general
 ### 2. more agile in incorporating new data after each season/year
@@ -25,7 +25,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ***
 
 ##Solution (what I learned in this workshop):  
-### Preserving computational workflows
+### ~> Preserving computational workflows <~
 
 ***
 
@@ -51,7 +51,7 @@ knitr::opts_chunk$set(echo = TRUE)
  * I can quickly send data and QA/QC updates, reports, and summaries to whomever via a web address
  * I learned some handy R functions. Yay code efficiency.
  * We recieved some project management training, including facilitating small group meetings for improved collaboration. See [Cheruvelil, K. S., Soranno, P. A., Weathers, K. C., Hanson, P. C., Goring, S. J., Filstrup, C. T., & Read, E. K. (2014). Creating and maintaining high-performing collaborative research teams: The importance of diversity and interpersonal skills. Frontiers in Ecology and the Environment.](https://esajournals.onlinelibrary.wiley.com/doi/epdf/10.1890/130001)
- * I chatted with a physical oceanographer (Andreas Muenchow), who recommended that we shouldn't remove any of our raw RBR Temp/Cond/Sal data bc it is real (they are measuring the conductivity of the environment, the environment is just extra turbid), and just flag it. So I'm changing how I'm handling that data (QM data should be re-designated: sedimented data). Also got some good insight into what to include in the metadata for our sensor data.
+ * I chatted with a physical oceanographer (Andreas Muenchow), who recommended that we shouldn't remove any of our raw RBR Temp/Cond/Sal data bc it is real (they are measuring the conductivity of the environment, the environment is just extra turbid), and just flag it. So I'm changing how I'm handling that data (QM data should be re-designated: sedimented data). Also got some good insight into what to include in the metadata for our sensor data (calibration coefficients!).
 
 
 
