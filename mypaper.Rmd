@@ -1,0 +1,60 @@
+---
+title: "Markdown MS"
+author: ["Christina Bonsell", "Nathan McTigue", "Emily Bristol", "Marilyn Monroe"]
+date: "October 11, 2019"
+output: html_document
+bibliography: references.bib
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, echo=F, warning=F, message=F}
+library(ggplot2)
+library(knitr)
+library(broom)
+library(captioner)
+library(cowplot)
+```
+
+```{r loadingdata, echo=F, message=F, results='hide'}
+data(diamonds)
+```
+
+# Abstract
+Diamonds are no one's friend.
+
+# Introduction
+
+Sweeping generalizations have been made about the French [@RStudio].
+How many diamonds would it take to have the equivalent value of one best friend?
+
+# Methods
+
+We compared assertaions made in a popular pop song to the `diamonds` dataset. 
+
+$$\sum_{x=1}^Nicole Kidman + \frac{\delta(x)}{x}$$
+
+# Results
+
+```{r}
+ggplot(diamonds, aes(carat, price, color=clarity))+
+  geom_point()+
+  theme_cowplot()+
+  labs(x = "Carat", y = "Price")
+```
+```{r, echo=F}
+mod <- lm(price ~ carat, data=diamonds)
+
+kable(tidy(mod), digits = 2)
+```
+
+This is how many diamonds it takes: `r mod$coefficients["carat"][[1]]`
+
+
+# Discussion
+
+This is clearly an inordinate number of diamonds.
+
+# References
